@@ -39,6 +39,7 @@ class RetrofitModule {
     }
 
     @Provides
+    @Singleton
     fun provideAfreecaService(
         retrofit: Retrofit
     ): AfreecaService = retrofit.create(AfreecaService::class.java)
