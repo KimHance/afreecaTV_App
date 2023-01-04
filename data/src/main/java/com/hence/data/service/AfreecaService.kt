@@ -13,7 +13,7 @@ interface AfreecaService {
         @Query("client_id") clientId: String = CLIENT_ID,
         @Query("select_key") selectKey: String = "",
         @Query("select_value") selectValue: String = "",
-        @Query("page_no") page: Int = 1
+        @Query("page_no") page: Int = STARTING_PAGE
     ): Response<BroadCastList>
 
     @GET("broad/category/list")
@@ -23,5 +23,6 @@ interface AfreecaService {
 
     companion object {
         const val CLIENT_ID = "af_mobilelab_dev_e0f147f6c034776add2142b425e81777"
+        const val STARTING_PAGE = 1
     }
 }
