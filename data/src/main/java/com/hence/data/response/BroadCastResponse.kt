@@ -4,7 +4,7 @@ package com.hence.data.response
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class BroadCastList(
+data class BroadCastResponse(
     val broad: List<Broad>,
     val page_no: Int
 ) {
