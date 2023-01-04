@@ -1,5 +1,6 @@
 package com.hence.di
 
+import com.hence.data.service.AfreecaService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,6 +37,11 @@ class RetrofitModule {
             .addNetworkInterceptor(loggingInterceptor)
             .build()
     }
+
+    @Provides
+    fun provideAfreecaService(
+        retrofit: Retrofit
+    ): AfreecaService = retrofit.create(AfreecaService::class.java)
 
     companion object {
         const val AFREECA_BASE_URL = "https://openapi.afreecatv.com/"
