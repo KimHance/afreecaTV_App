@@ -6,8 +6,8 @@ import com.hence.domain.model.Broadcast
 import com.hence.domain.model.Category
 import com.hence.domain.model.DetailCategory
 
-fun BroadCastResponse.toBroadCast(): List<Broadcast> {
-    return this.broad.map {
+fun List<BroadCastResponse.Broad>.toBroadCast(): List<Broadcast> {
+    return this.map {
         Broadcast(
             title = it.broad_title,
             isPrivate = it.is_password,
