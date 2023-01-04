@@ -7,3 +7,10 @@ java {
     sourceCompatibility = JavaVersion.VERSION_1_7
     targetCompatibility = JavaVersion.VERSION_1_7
 }
+dependencies {
+    // Coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
+
+    // Paging
+    testImplementation "androidx.paging:paging-common:$paging_version"
+}
