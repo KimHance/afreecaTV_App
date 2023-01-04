@@ -1,20 +1,18 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    namespace 'com.hence.afreecatv'
+    namespace 'com.hence.data'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.hence.afreecatv"
         minSdk 23
         targetSdk 31
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -33,6 +31,5 @@ android {
 }
 
 dependencies {
-    implementation project(":data")
-    implementation project(":presentation")
+    implementation project(":domain")
 }
