@@ -16,5 +16,5 @@ dependencies {
     implementation "com.google.dagger:hilt-core:$hilt_version"
 
     // Paging
-    testImplementation "androidx.paging:paging-common:$paging_version"
+    implementation "androidx.paging:paging-common:$paging_version"
 }
