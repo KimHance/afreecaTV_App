@@ -1,14 +1,14 @@
 package com.hence.data.source.datasource
 
-import com.hence.data.response.BroadCastList
-import com.hence.data.response.CategoryList.BroadCategory as BroadCategory
+import com.hence.domain.model.Broadcast
+import com.hence.domain.model.Category
 
 interface AfreecaDataSource {
     suspend fun getBroadCastList(
         selectKey: String,
         selectValue: String,
         page: Int
-    ): List<BroadCastList.Broad>
+    ): List<Broadcast>
 
-    suspend fun getCategoryList(): List<BroadCategory>
+    suspend fun getCategoryList(): List<Category>
 }

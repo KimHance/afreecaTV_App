@@ -1,9 +1,12 @@
 package com.hence.data.source.datasource.impl
 
-import com.hence.data.response.BroadCastList
-import com.hence.data.response.CategoryList.BroadCategory
+import com.hence.data.mapper.toBroadCast
+import com.hence.data.mapper.toCategory
+import com.hence.data.response.CategoryResponse.BroadCategory
 import com.hence.data.service.AfreecaService
 import com.hence.data.source.datasource.AfreecaDataSource
+import com.hence.domain.model.Broadcast
+import com.hence.domain.model.Category
 import javax.inject.Inject
 
 class AfreecaDataSourceImpl @Inject constructor(
@@ -14,25 +17,25 @@ class AfreecaDataSourceImpl @Inject constructor(
         selectKey: String,
         selectValue: String,
         page: Int
-    ): List<BroadCastList.Broad> {
+    ): List<Broadcast> {
         val response = afreecaService.getBroadCastList(
             selectKey = selectKey,
             selectValue = selectValue,
             page = page
         )
         return if (response.isSuccessful) {
-            response.body()!!.broad
+            response.body()?.broad?.toBroadCast() ?: emptyList()
         } else {
             throw Error(response.message())
         }
     }
 
-    override suspend fun getCategoryList(): List<BroadCategory> {
+    override suspend fun getCategoryList(): List<Category> {
         val response = afreecaService.getCategoryList()
         return if (response.isSuccessful) {
-            response.body()!!.broad_category
+            response.body()?.toCategory() ?: emptyList()
         } else {
-            throw  Error(response.message())
+            throw Error(response.message())
         }
     }
 }
