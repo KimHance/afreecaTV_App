@@ -11,7 +11,7 @@ interface AfreecaService {
     @GET("broad/list")
     suspend fun getBroadCastList(
         @Query("client_id") clientId: String = CLIENT_ID,
-        @Query("select_key") selectKey: String = "",
+        @Query("select_key") selectKey: String = "cate",
         @Query("select_value") selectValue: String = "",
         @Query("page_no") page: Int = STARTING_PAGE
     ): Response<BroadCastResponse>

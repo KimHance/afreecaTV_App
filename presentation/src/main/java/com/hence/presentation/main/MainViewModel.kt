@@ -18,7 +18,11 @@ class MainViewModel @Inject constructor(
     private val _categoryList = MutableStateFlow<List<Category>>(emptyList())
     val categoryList = _categoryList.asStateFlow()
 
-    fun getCategoryList() {
+    init {
+        getCategoryList()
+    }
+
+    private fun getCategoryList() {
         viewModelScope.launch {
             getCategoryListUseCase().collect { list ->
                 _categoryList.value = list
