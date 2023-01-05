@@ -18,7 +18,7 @@ fun List<BroadCastResponse.Broad>.toBroadCast(): List<Broadcast> {
             userProfile = it.profile_img,
             broadThumb = it.broad_thumb,
             broadGrade = it.broad_grade,
-            viewCount = it.visit_broad_type
+            viewCount = it.total_view_cnt
         )
     }
 }

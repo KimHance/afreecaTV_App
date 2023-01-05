@@ -7,6 +7,6 @@ import com.hence.domain.model.Category
 import kotlinx.coroutines.flow.Flow
 
 interface AfreecaRepository {
-    fun getBroadcastList(selectKey: String, selectValue: String): Flow<PagingData<Broadcast>>
+    fun getBroadcastList(selectValue: String): Flow<PagingData<Broadcast>>
     fun getCategoryList(): Flow<List<Category>>
 }

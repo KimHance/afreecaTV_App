@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        mainViewModel.getCategoryList()
         initView()
     }
 
@@ -28,8 +27,9 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             mainViewModel.categoryList.collect { categoryList ->
                 binding.apply {
-                    vpMain.adapter = PagerAdapter(supportFragmentManager, lifecycle)
                     if (categoryList.isNotEmpty()) {
+                        vpMain.adapter =
+                            PagerAdapter(supportFragmentManager, lifecycle, categoryList)
                         TabLayoutMediator(tlMain, vpMain) { tab, position ->
                             tab.text = categoryList[position].name
                         }.attach()

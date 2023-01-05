@@ -9,7 +9,6 @@ import java.io.IOException
 
 class AfreecaPagingSource(
     private val afreecaDataSource: AfreecaDataSource,
-    private val selectKey: String,
     private val selectValue: String,
 ) : PagingSource<Int, Broadcast>() {
 
@@ -25,7 +24,6 @@ class AfreecaPagingSource(
         return try {
             val broadCastList =
                 afreecaDataSource.getBroadCastList(
-                    selectKey = selectKey,
                     selectValue = selectValue,
                     page = position
                 )

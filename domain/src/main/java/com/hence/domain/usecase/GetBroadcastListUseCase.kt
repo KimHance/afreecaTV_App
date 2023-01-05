@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetBroadcastListUseCase @Inject constructor(
     private val afreecaRepository: AfreecaRepository
 ) {
-    operator fun invoke(selectKey: String, selectValue: String) = afreecaRepository.getBroadcastList(selectKey, selectValue)
+    operator fun invoke(selectValue: String) = afreecaRepository.getBroadcastList(selectValue)
 }

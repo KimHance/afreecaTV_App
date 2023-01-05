@@ -2,7 +2,6 @@ package com.hence.data.source.datasource.impl
 
 import com.hence.data.mapper.toBroadCast
 import com.hence.data.mapper.toCategory
-import com.hence.data.response.CategoryResponse.BroadCategory
 import com.hence.data.service.AfreecaService
 import com.hence.data.source.datasource.AfreecaDataSource
 import com.hence.domain.model.Broadcast
@@ -14,12 +13,10 @@ class AfreecaDataSourceImpl @Inject constructor(
 ) : AfreecaDataSource {
 
     override suspend fun getBroadCastList(
-        selectKey: String,
         selectValue: String,
         page: Int
     ): List<Broadcast> {
         val response = afreecaService.getBroadCastList(
-            selectKey = selectKey,
             selectValue = selectValue,
             page = page
         )

@@ -21,19 +21,18 @@ class AfreecaRepositoryImpl @Inject constructor(
     @DispatcherModule.DispatcherIO private val dispatcherIO: CoroutineDispatcher
 ) : AfreecaRepository {
     override fun getBroadcastList(
-        selectKey: String,
         selectValue: String
     ): Flow<PagingData<Broadcast>> =
         Pager(PagingConfig(PAGE_SIZE)) {
-            AfreecaPagingSource(afreecaDataSource, selectKey, selectValue)
+            AfreecaPagingSource(afreecaDataSource, selectValue)
         }.flow.flowOn(dispatcherIO)
 
     override fun getCategoryList(): Flow<List<Category>> = flow {
         emit(afreecaDataSource.getCategoryList().filter { category ->
-            category.name in listOf(
-                CategoryType.EAT.categoryName,
-                CategoryType.TALK.categoryName,
-                CategoryType.GAME.categoryName
+            category.number in listOf(
+                CategoryType.EAT.categoryNumber,
+                CategoryType.TALK.categoryNumber,
+                CategoryType.GAME.categoryNumber
             )
         })
     }.flowOn(dispatcherIO)
