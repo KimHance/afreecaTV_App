@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="broadcast"
+            type="com.hence.domain.model.Broadcast" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_broad_thumb"
+            android:layout_width="194dp"
+            android:layout_height="109dp"
+            android:layout_marginStart="5dp"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_broad_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="32dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_broad_thumb"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="[미술의날] 나랑 같이 그림 그릴랭? :D" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_user_profile"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="1dp"
+            app:layout_constraintStart_toEndOf="@id/iv_broad_thumb"
+            app:layout_constraintTop_toBottomOf="@id/tv_broad_name"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_user_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/iv_viewers"
+            app:layout_constraintStart_toEndOf="@id/iv_user_profile"
+            app:layout_constraintTop_toTopOf="@id/iv_user_profile"
+            tools:text="유저 닉네임" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_viewers"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/ic_people"
+            app:layout_constraintBottom_toBottomOf="@id/iv_user_profile"
+            app:layout_constraintStart_toEndOf="@id/iv_user_profile"
+            app:layout_constraintTop_toBottomOf="@id/tv_user_nick" />
+
+        <TextView
+            android:id="@+id/tv_total_viewers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_viewers"
+            app:layout_constraintStart_toEndOf="@id/iv_viewers"
+            app:layout_constraintTop_toTopOf="@id/iv_viewers"
+            tools:text="39" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
