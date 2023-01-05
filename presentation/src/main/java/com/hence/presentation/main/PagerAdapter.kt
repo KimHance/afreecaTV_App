@@ -6,9 +6,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.hence.domain.model.Category
-import com.hence.presentation.category.eat.EatFragment
-import com.hence.presentation.category.game.GameFragment
-import com.hence.presentation.category.talk.TalkFragment
+import com.hence.presentation.category.CategoryFragment
 
 class PagerAdapter(
     fragmentManager: FragmentManager,
@@ -20,24 +18,21 @@ class PagerAdapter(
     override fun getItemCount(): Int = TAB_NUM
 
     override fun createFragment(position: Int): Fragment {
+        val fragment = CategoryFragment()
         when (position) {
             0 -> {
-                val fragment = TalkFragment()
                 fragment.arguments = Bundle().apply {
                     putString(ARG_CATEGORY, categoryList[position].number)
                 }
                 return fragment
             }
             1 -> {
-                val fragment = EatFragment()
                 fragment.arguments = Bundle().apply {
                     putString(ARG_CATEGORY, categoryList[position].number)
                 }
                 return fragment
             }
-
             else -> {
-                val fragment = GameFragment()
                 fragment.arguments = Bundle().apply {
                     putString(ARG_CATEGORY, categoryList[position].number)
                 }

@@ -13,7 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp">
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_broad_thumb"
@@ -33,6 +34,7 @@
             android:layout_marginEnd="32dp"
             android:ellipsize="end"
             android:maxLines="2"
+            android:text="@{broadcast.title}"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,6 +55,7 @@
             android:id="@+id/tv_user_nick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{broadcast.userNick}"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@id/iv_viewers"
             app:layout_constraintStart_toEndOf="@id/iv_user_profile"
@@ -73,6 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
+            android:text="@{broadcast.viewCount}"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_viewers"
             app:layout_constraintStart_toEndOf="@id/iv_viewers"
