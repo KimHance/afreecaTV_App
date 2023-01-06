@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 class BroadcastFragment :
     BaseFragment<FragmentBroadcastBinding>(R.layout.fragment_broadcast) {
 
-    private val categoryViewModel: BroadcastViewModel by viewModels()
+    private val broadcastViewModel: BroadcastViewModel by viewModels()
     private val broadcastAdapter: BroadcastPagingAdapter by lazy {
         BroadcastPagingAdapter(itemClickListener = { broadcast ->
             doOnClick(broadcast)
@@ -31,9 +31,13 @@ class BroadcastFragment :
     }
     private lateinit var categoryNum: String
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initData()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initData()
         initView()
         collectFlow()
     }
@@ -45,14 +49,14 @@ class BroadcastFragment :
     private fun initData() {
         arguments?.takeIf { it.containsKey(PagerAdapter.ARG_CATEGORY) }?.apply {
             categoryNum = getString(PagerAdapter.ARG_CATEGORY) ?: ""
-            categoryViewModel.getBroadcastList(categoryNum)
+            broadcastViewModel.getBroadcastList(categoryNum)
         }
     }
 
     private fun collectFlow() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                with(categoryViewModel) {
+                with(broadcastViewModel) {
                     when (CategoryType.getCategory(categoryNum)) {
                         CategoryType.TALK -> {
                             talkBroadcastList.collectLatest { data ->
