@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="broadcast"
+            type="com.hence.domain.model.Broadcast" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_detail_profile"
+            bindProfile="@{broadcast.userProfile}"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_back"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_detail_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{broadcast.userNick}"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/iv_detail_profile"
+            app:layout_constraintStart_toStartOf="@id/iv_detail_profile"
+            app:layout_constraintTop_toBottomOf="@id/iv_detail_profile"
+            tools:text="[DM]퀸다미" />
+
+        <TextView
+            android:id="@+id/tv_detail_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{broadcast.userId}"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/iv_detail_profile"
+            app:layout_constraintStart_toStartOf="@id/iv_detail_profile"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_nick"
+            tools:text="damikim" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_detail_broad_thumb"
+            bindThumbnail="@{broadcast.broadThumb}"
+            android:layout_width="250dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_id"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+            android:id="@+id/tv_detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_detail_broad_thumb"
+            tools:text="[미술의날] 나랑 같이 그림 그릴랭? :D" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_detail_viewers"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_people"
+            app:layout_constraintStart_toStartOf="@id/iv_detail_broad_thumb"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_title" />
+
+        <TextView
+            android:id="@+id/tv_detail_viewers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="@{broadcast.viewCount}"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_detail_viewers"
+            app:layout_constraintStart_toEndOf="@id/iv_detail_viewers"
+            app:layout_constraintTop_toTopOf="@id/iv_detail_viewers"
+            tools:text="10" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
