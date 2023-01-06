@@ -1,4 +1,4 @@
-package com.hence.presentation.category.viewholder
+package com.hence.presentation.broadcast.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.hence.domain.model.Broadcast
