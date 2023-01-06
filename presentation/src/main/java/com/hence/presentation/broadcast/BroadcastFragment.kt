@@ -2,11 +2,13 @@ package com.hence.presentation.broadcast
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.hence.domain.model.Broadcast
 import com.hence.domain.model.CategoryType
 import com.hence.presentation.R
@@ -40,10 +42,27 @@ class BroadcastFragment :
         super.onViewCreated(view, savedInstanceState)
         initView()
         collectFlow()
+        checkRecyclerviewIsTopState()
     }
 
     private fun initView() {
-        binding.rvBroadcast.adapter = broadcastAdapter
+        binding.apply {
+            rvBroadcast.adapter = broadcastAdapter
+            btnUpScroll.setOnClickListener {
+                rvBroadcast.smoothScrollToPosition(0)
+            }
+        }
+    }
+
+    private fun checkRecyclerviewIsTopState() {
+        with(binding) {
+            rvBroadcast.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    btnUpScroll.isVisible = recyclerView.computeVerticalScrollOffset() != 0
+                }
+            })
+        }
     }
 
     private fun initData() {
