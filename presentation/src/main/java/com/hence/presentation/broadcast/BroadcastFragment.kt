@@ -6,10 +6,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.findNavController
+import com.hence.domain.model.Broadcast
 import com.hence.domain.model.CategoryType
 import com.hence.presentation.R
 import com.hence.presentation.base.BaseFragment
 import com.hence.presentation.broadcast.adapter.BroadcastPagingAdapter
+import com.hence.presentation.category.CategoryFragmentDirections
 import com.hence.presentation.databinding.FragmentBroadcastBinding
 import com.hence.presentation.main.PagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +25,9 @@ class BroadcastFragment :
 
     private val categoryViewModel: BroadcastViewModel by viewModels()
     private val broadcastAdapter: BroadcastPagingAdapter by lazy {
-        BroadcastPagingAdapter()
+        BroadcastPagingAdapter(itemClickListener = { broadcast ->
+            doOnClick(broadcast)
+        })
     }
     private lateinit var categoryNum: String
 
@@ -71,6 +76,11 @@ class BroadcastFragment :
                 }
             }
         }
+    }
+
+    private fun doOnClick(broadcast: Broadcast) {
+        val action = CategoryFragmentDirections.actionCategoryFragmentToDetailFragment(broadcast)
+        requireView().findNavController().navigate(action)
     }
 
 }

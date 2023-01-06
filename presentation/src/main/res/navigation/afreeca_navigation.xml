@@ -17,7 +17,7 @@
         android:id="@+id/categoryFragment"
         android:name="com.hence.presentation.category.CategoryFragment"
         android:label="CategoryFragment"
-        tools:layout="@layout/fragment_category">
+        tools:layout="@layout/fragment_category" >
         <action
             android:id="@+id/action_categoryFragment_to_detailFragment"
             app:destination="@id/detailFragment" />

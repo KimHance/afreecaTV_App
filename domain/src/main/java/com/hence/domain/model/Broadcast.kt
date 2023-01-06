@@ -1,5 +1,7 @@
 package com.hence.domain.model
 
+import java.io.Serializable
+
 data class Broadcast(
     val title: String,
     val isPrivate: String,
@@ -11,4 +13,4 @@ data class Broadcast(
     val broadThumb: String,
     val broadGrade: String,
     val viewCount: String
-)
+) : Serializable
