@@ -1,4 +1,4 @@
-package com.hence.presentation.category.adapter
+package com.hence.presentation.broadcast.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,10 +7,11 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.hence.domain.model.Broadcast
 import com.hence.presentation.R
-import com.hence.presentation.category.viewholder.BroadcastViewHolder
+import com.hence.presentation.broadcast.viewholder.BroadcastViewHolder
 
-class BroadcastPagingAdapter :
-    PagingDataAdapter<Broadcast, BroadcastViewHolder>(broadcastDiffUtil) {
+class BroadcastPagingAdapter(
+    private val itemClickListener: (Broadcast) -> Unit
+) : PagingDataAdapter<Broadcast, BroadcastViewHolder>(broadcastDiffUtil) {
 
     override fun onBindViewHolder(holder: BroadcastViewHolder, position: Int) {
         getItem(position)?.let { holder.bind(it) }
@@ -23,7 +24,8 @@ class BroadcastPagingAdapter :
                 R.layout.item_broadcast,
                 parent,
                 false
-            )
+            ),
+            itemClickListener
         )
     }
 
