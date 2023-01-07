@@ -41,6 +41,7 @@ class BroadcastFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        swipeToRefresh()
         collectFlow()
         checkRecyclerviewIsTopState()
     }
@@ -51,6 +52,12 @@ class BroadcastFragment :
             btnUpScroll.setOnClickListener {
                 rvBroadcast.smoothScrollToPosition(0)
             }
+        }
+    }
+
+    private fun swipeToRefresh() {
+        binding.srlBroadcast.setOnRefreshListener {
+            broadcastViewModel.refreshBroadcastList(categoryNum)
         }
     }
 
@@ -80,16 +87,19 @@ class BroadcastFragment :
                         CategoryType.TALK -> {
                             talkBroadcastList.collectLatest { data ->
                                 broadcastAdapter.submitData(data)
+                                binding.srlBroadcast.isRefreshing = false
                             }
                         }
                         CategoryType.GAME -> {
                             gameBroadcastList.collectLatest { data ->
                                 broadcastAdapter.submitData(data)
+                                binding.srlBroadcast.isRefreshing = false
                             }
                         }
                         CategoryType.EAT -> {
                             eatBroadcastList.collectLatest { data ->
                                 broadcastAdapter.submitData(data)
+                                binding.srlBroadcast.isRefreshing = false
                             }
                         }
                         CategoryType.UNDEFINED -> {
