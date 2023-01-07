@@ -1,5 +1,6 @@
 package com.hence.presentation.broadcast
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -10,13 +11,14 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.hence.domain.model.Broadcast
+import com.hence.domain.model.Category
 import com.hence.domain.model.CategoryType
 import com.hence.presentation.R
 import com.hence.presentation.base.BaseFragment
 import com.hence.presentation.broadcast.adapter.BroadcastPagingAdapter
 import com.hence.presentation.category.CategoryFragmentDirections
 import com.hence.presentation.databinding.FragmentBroadcastBinding
-import com.hence.presentation.main.PagerAdapter
+import com.hence.presentation.main.PagerAdapter.Companion.ARG_CATEGORY
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -31,7 +33,7 @@ class BroadcastFragment :
             doOnClick(broadcast)
         })
     }
-    private lateinit var categoryNum: String
+    private lateinit var category: Category
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +59,7 @@ class BroadcastFragment :
 
     private fun swipeToRefresh() {
         binding.srlBroadcast.setOnRefreshListener {
-            broadcastViewModel.refreshBroadcastList(categoryNum)
+            broadcastViewModel.refreshBroadcastList(category.number)
         }
     }
 
@@ -73,9 +75,13 @@ class BroadcastFragment :
     }
 
     private fun initData() {
-        arguments?.takeIf { it.containsKey(PagerAdapter.ARG_CATEGORY) }?.apply {
-            categoryNum = getString(PagerAdapter.ARG_CATEGORY) ?: ""
-            broadcastViewModel.getBroadcastList(categoryNum)
+        arguments?.takeIf { it.containsKey(ARG_CATEGORY) }?.apply {
+            category = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                getSerializable(ARG_CATEGORY, Category::class.java)
+            } else {
+                getSerializable(ARG_CATEGORY) as Category
+            } ?: Category()
+            broadcastViewModel.getBroadcastList(category.number)
         }
     }
 
@@ -83,7 +89,7 @@ class BroadcastFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 with(broadcastViewModel) {
-                    when (CategoryType.getCategory(categoryNum)) {
+                    when (CategoryType.getCategory(category.number)) {
                         CategoryType.TALK -> {
                             talkBroadcastList.collectLatest { data ->
                                 broadcastAdapter.submitData(data)

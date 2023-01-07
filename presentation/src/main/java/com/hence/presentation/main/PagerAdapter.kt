@@ -18,19 +18,19 @@ class PagerAdapter(
         when (position) {
             0 -> {
                 fragment.arguments = Bundle().apply {
-                    putString(ARG_CATEGORY, categoryList[position].number)
+                    putSerializable(ARG_CATEGORY, categoryList[position])
                 }
                 return fragment
             }
             1 -> {
                 fragment.arguments = Bundle().apply {
-                    putString(ARG_CATEGORY, categoryList[position].number)
+                    putSerializable(ARG_CATEGORY, categoryList[position])
                 }
                 return fragment
             }
             else -> {
                 fragment.arguments = Bundle().apply {
-                    putString(ARG_CATEGORY, categoryList[position].number)
+                    putSerializable(ARG_CATEGORY, categoryList[position])
                 }
                 return fragment
             }
