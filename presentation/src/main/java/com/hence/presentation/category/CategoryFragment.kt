@@ -9,13 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.hence.presentation.R
 import com.hence.presentation.base.BaseFragment
 import com.hence.presentation.databinding.FragmentCategoryBinding
 import com.hence.presentation.main.PagerAdapter
 import com.hence.presentation.utils.NetworkManager
+import com.hence.presentation.utils.showErrorMessage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -77,11 +77,10 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(R.layout.fragment
                             }
                         }
                         is CategoryUiState.Error -> {
-                            Snackbar.make(
+                            requireContext().showErrorMessage(
                                 requireView(),
-                                getString(R.string.error_fail_to_fetch_list),
-                                Snackbar.LENGTH_SHORT
-                            ).show()
+                                getString(R.string.error_fetch_category)
+                            )
                             binding.ivRestartFetchCategory.isVisible = true
                         }
                         is CategoryUiState.Loading -> {}

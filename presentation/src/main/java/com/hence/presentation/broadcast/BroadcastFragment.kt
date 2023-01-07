@@ -12,7 +12,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.hence.domain.model.Broadcast
 import com.hence.domain.model.Category
 import com.hence.domain.model.DetailCategory
@@ -23,6 +22,7 @@ import com.hence.presentation.broadcast.adapter.CategoryDetailAdapter
 import com.hence.presentation.category.CategoryFragmentDirections
 import com.hence.presentation.databinding.FragmentBroadcastBinding
 import com.hence.presentation.main.PagerAdapter.Companion.ARG_CATEGORY
+import com.hence.presentation.utils.showErrorMessage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -118,18 +118,16 @@ class BroadcastFragment :
                 launch {
                     broadcastAdapter.loadStateFlow.collectLatest { loadState ->
                         if (loadState.source.refresh is LoadState.Error) {
-                            Snackbar.make(
+                            requireContext().showErrorMessage(
                                 requireView(),
-                                getString(R.string.error_fail_to_fetch_list),
-                                Snackbar.LENGTH_SHORT
-                            ).show()
+                                getString(R.string.error_fail_to_fetch_list)
+                            )
                         }
                         if (loadState.source.append is LoadState.Error) {
-                            Snackbar.make(
+                            requireContext().showErrorMessage(
                                 requireView(),
-                                getString(R.string.error_fetch_more_list),
-                                Snackbar.LENGTH_SHORT
-                            ).show()
+                                getString(R.string.error_fetch_more_list)
+                            )
                         }
                     }
                 }
