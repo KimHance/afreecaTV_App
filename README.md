@@ -1,6 +1,6 @@
 # 아프리카TV 사전과제
 
-## Intro
+## About
 [Afreeca Open API](https://developers.afreecatv.com/?szWork=openapi)를 사용한 방송리스트 조회 및 카테고리 필터링 가능한 어플리케이션
 
 ## Tech
