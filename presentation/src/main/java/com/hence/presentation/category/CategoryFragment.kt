@@ -14,7 +14,7 @@ import com.hence.presentation.R
 import com.hence.presentation.base.BaseFragment
 import com.hence.presentation.databinding.FragmentCategoryBinding
 import com.hence.presentation.main.PagerAdapter
-import com.hence.presentation.utils.NetworkManager
+import com.hence.presentation.utils.isNetworkConnected
 import com.hence.presentation.utils.showErrorMessage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -39,7 +39,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(R.layout.fragment
     }
 
     private fun checkNetworkState() {
-        if (!NetworkManager.checkNetworkState(requireContext())) {
+        if (!requireContext().isNetworkConnected()) {
             requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
             showNetworkErrorDialog()
             isNetworkConnected = false
@@ -77,7 +77,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(R.layout.fragment
                             }
                         }
                         is CategoryUiState.Error -> {
-                            requireContext().showErrorMessage(
+                            showErrorMessage(
                                 requireView(),
                                 getString(R.string.error_fetch_category)
                             )
@@ -99,4 +99,5 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(R.layout.fragment
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {}
     }
+
 }

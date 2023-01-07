@@ -110,13 +110,13 @@ class BroadcastFragment :
                 launch {
                     broadcastAdapter.loadStateFlow.collectLatest { loadState ->
                         if (loadState.source.refresh is LoadState.Error) {
-                            requireContext().showErrorMessage(
+                            showErrorMessage(
                                 requireView(),
                                 getString(R.string.error_fail_to_fetch_list)
                             )
                         }
                         if (loadState.source.append is LoadState.Error) {
-                            requireContext().showErrorMessage(
+                            showErrorMessage(
                                 requireView(),
                                 getString(R.string.error_fetch_more_list)
                             )
