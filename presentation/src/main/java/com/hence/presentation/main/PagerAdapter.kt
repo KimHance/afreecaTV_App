@@ -14,25 +14,9 @@ class PagerAdapter(
     override fun getItemCount(): Int = TAB_NUM
 
     override fun createFragment(position: Int): Fragment {
-        val fragment = BroadcastFragment()
-        when (position) {
-            0 -> {
-                fragment.arguments = Bundle().apply {
-                    putString(ARG_CATEGORY, categoryList[position].number)
-                }
-                return fragment
-            }
-            1 -> {
-                fragment.arguments = Bundle().apply {
-                    putString(ARG_CATEGORY, categoryList[position].number)
-                }
-                return fragment
-            }
-            else -> {
-                fragment.arguments = Bundle().apply {
-                    putString(ARG_CATEGORY, categoryList[position].number)
-                }
-                return fragment
+        return BroadcastFragment().apply {
+            arguments = Bundle().apply {
+                putSerializable(ARG_CATEGORY, categoryList[position])
             }
         }
     }
