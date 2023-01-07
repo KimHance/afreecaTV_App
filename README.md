@@ -431,7 +431,7 @@ fun Context.isNetworkConnected(): Boolean {
   }
   …  
 ```
-- 네트워크 연결x 상태로 앱을 실행하면 다이얼로그가 띄워지며 앱이 종료되게 유도 됩니다.
+- 네트워크 연결x 상태로 앱을 실행하면 다이얼로그가 띄워지며 앱을 종료하도록 유도합니다.
 - 다이얼로그가 띄워졌을 시 뒤로가기 및 배경터치(setCancelable(false))를 막습니다.
 
 ```kotlin
@@ -461,5 +461,5 @@ fun Context.isNetworkConnected(): Boolean {
     }
     …
 ```
-- PagingAdapter의 loadState를 collectLatest하여 첫 받아오기와 페이지가 추가될 때의 에러 발생시 Snackbar메세지가 띄워집니다.
-- SwipeRefreshLayout을 활용하여 새로고침 합니다.
+- PagingAdapter의 loadState를 collectLatest하여 loadState.souce.refresh와 loadState.source.append가 LoadState.Error상태일 때 Snackbar메세지를 띄웁니다.
+- SwipeRefreshLayout을 활용하여 방송 데이터를 새로 받아옵니다.
