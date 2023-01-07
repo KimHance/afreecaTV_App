@@ -11,7 +11,7 @@ class PagerAdapter(
     private val categoryList: List<Category>
 ) : FragmentStateAdapter(fragment) {
 
-    override fun getItemCount(): Int = TAB_NUM
+    override fun getItemCount(): Int = categoryList.size
 
     override fun createFragment(position: Int): Fragment {
         return BroadcastFragment().apply {
@@ -22,7 +22,6 @@ class PagerAdapter(
     }
 
     companion object {
-        const val TAB_NUM = 3
         const val ARG_CATEGORY = "key_category"
     }
 }
