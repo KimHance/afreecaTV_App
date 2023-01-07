@@ -38,6 +38,13 @@ class BroadcastViewModel @Inject constructor(
         }
     }
 
+    fun refreshBroadcastList(categoryNum: String) {
+        viewModelScope.launch {
+            emitData(CategoryType.getCategory(categoryNum), PagingData.empty())
+            getBroadcastList(categoryNum)
+        }
+    }
+
     private suspend fun emitData(categoryType: CategoryType, data: PagingData<Broadcast>) {
         when (categoryType) {
             CategoryType.TALK -> {
