@@ -10,7 +10,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.hence.domain.model.Broadcast
 import com.hence.domain.model.Category
 import com.hence.domain.model.DetailCategory
@@ -107,9 +109,29 @@ class BroadcastFragment :
     private fun collectFlow() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                broadcastViewModel.broadcastList.collectLatest { pagingData ->
-                    broadcastAdapter.submitData(pagingData)
-                    binding.srlBroadcast.isRefreshing = false
+                launch {
+                    broadcastViewModel.broadcastList.collectLatest { pagingData ->
+                        broadcastAdapter.submitData(pagingData)
+                        binding.srlBroadcast.isRefreshing = false
+                    }
+                }
+                launch {
+                    broadcastAdapter.loadStateFlow.collectLatest { loadState ->
+                        if (loadState.source.refresh is LoadState.Error) {
+                            Snackbar.make(
+                                requireView(),
+                                getString(R.string.error_fail_to_get_list),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                        }
+                        if (loadState.source.append is LoadState.Error) {
+                            Snackbar.make(
+                                requireView(),
+                                getString(R.string.error_network),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
                 }
             }
         }

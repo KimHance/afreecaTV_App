@@ -5,4 +5,5 @@
     <string name="error_network">네트워크 에러</string>
     <string name="error_network_message">네트워크에 연결되어 있지 않아 앱을 종료합니다.\n 네트워크 확인 후 다시 실행해 주세요</string>
     <string name="check">확인</string>
+    <string name="error_fail_to_get_list">방송 리스트를 받아올 수 없습니다.</string>
 </resources>
