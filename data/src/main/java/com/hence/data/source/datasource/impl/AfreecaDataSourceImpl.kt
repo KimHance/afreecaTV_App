@@ -23,7 +23,7 @@ class AfreecaDataSourceImpl @Inject constructor(
         return if (response.isSuccessful) {
             response.body()?.broad?.toBroadCast() ?: emptyList()
         } else {
-            throw Error(response.message())
+            throw Exception(response.message())
         }
     }
 
@@ -32,7 +32,7 @@ class AfreecaDataSourceImpl @Inject constructor(
         return if (response.isSuccessful) {
             response.body()?.toCategory() ?: emptyList()
         } else {
-            throw Error(response.message())
+            throw Exception(response.message())
         }
     }
 }

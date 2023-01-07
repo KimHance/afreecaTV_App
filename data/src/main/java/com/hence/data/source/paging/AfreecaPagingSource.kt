@@ -5,7 +5,6 @@ import androidx.paging.PagingState
 import com.hence.data.service.AfreecaService.Companion.STARTING_PAGE
 import com.hence.data.source.datasource.AfreecaDataSource
 import com.hence.domain.model.Broadcast
-import java.io.IOException
 
 class AfreecaPagingSource(
     private val afreecaDataSource: AfreecaDataSource,
@@ -32,7 +31,7 @@ class AfreecaPagingSource(
                 prevKey = if (position == STARTING_PAGE) null else position - 1,
                 nextKey = if (broadCastList.isEmpty()) null else position + 1
             )
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             return LoadResult.Error(e)
         }
     }

@@ -28,13 +28,19 @@ class AfreecaRepositoryImpl @Inject constructor(
         }.flow.flowOn(dispatcherIO)
 
     override fun getCategoryList(): Flow<List<Category>> = flow {
-        emit(afreecaDataSource.getCategoryList().filter { category ->
-            category.number in listOf(
-                CategoryType.EAT.categoryNumber,
-                CategoryType.TALK.categoryNumber,
-                CategoryType.GAME.categoryNumber
-            )
-        })
+        runCatching {
+            afreecaDataSource.getCategoryList()
+        }.onSuccess { list ->
+            emit(list.filter { category ->
+                category.number in listOf(
+                    CategoryType.EAT.categoryNumber,
+                    CategoryType.TALK.categoryNumber,
+                    CategoryType.GAME.categoryNumber
+                )
+            })
+        }.onFailure { exception ->
+            throw exception
+        }
     }.flowOn(dispatcherIO)
 
     companion object {
