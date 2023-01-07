@@ -14,12 +14,7 @@ data class DetailCategory(
 ) : Serializable
 
 enum class CategoryType(val categoryNumber: String) {
-    UNDEFINED(categoryNumber = "00000000"),
     TALK(categoryNumber = "00130000"),
     EAT(categoryNumber = "00330000"),
     GAME(categoryNumber = "00040000");
-
-    companion object {
-        fun getCategory(value: String) = values().find { value == it.categoryNumber } ?: UNDEFINED
-    }
 }
