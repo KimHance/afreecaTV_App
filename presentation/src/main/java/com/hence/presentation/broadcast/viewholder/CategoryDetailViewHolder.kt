@@ -8,12 +8,17 @@ class CategoryDetailViewHolder(
     private val binding: ItemCategoryDetailBinding,
     private val itemClickListener: (DetailCategory) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
+    init {
+        itemView.setOnClickListener {
+            binding.category?.run {
+                itemClickListener(this)
+            }
+        }
+    }
+
     fun bind(item: DetailCategory) {
         binding.apply {
             category = item
-            itemView.setOnClickListener {
-                itemClickListener(item)
-            }
             executePendingBindings()
         }
     }
