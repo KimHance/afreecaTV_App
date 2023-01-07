@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.hence.domain.model.Broadcast
-import com.hence.domain.model.CategoryType
 import com.hence.domain.usecase.GetBroadcastListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,46 +18,23 @@ class BroadcastViewModel @Inject constructor(
     private val getBroadcastListUseCase: GetBroadcastListUseCase
 ) : ViewModel() {
 
-    private val _talkBroadcastList = MutableStateFlow<PagingData<Broadcast>>(PagingData.empty())
-    val talkBroadcastList = _talkBroadcastList.asStateFlow()
-
-    private val _eatBroadcastList = MutableStateFlow<PagingData<Broadcast>>(PagingData.empty())
-    val eatBroadcastList = _eatBroadcastList.asStateFlow()
-
-    private val _gameBroadcastList = MutableStateFlow<PagingData<Broadcast>>(PagingData.empty())
-    val gameBroadcastList = _gameBroadcastList.asStateFlow()
+    private val _broadcastList = MutableStateFlow<PagingData<Broadcast>>(PagingData.empty())
+    val broadcastList = _broadcastList.asStateFlow()
 
     fun getBroadcastList(categoryNum: String) {
         viewModelScope.launch {
             getBroadcastListUseCase(categoryNum)
                 .cachedIn(this)
                 .collectLatest { data ->
-                    emitData(CategoryType.getCategory(categoryNum), data)
+                    _broadcastList.emit(data)
                 }
         }
     }
 
     fun refreshBroadcastList(categoryNum: String) {
         viewModelScope.launch {
-            emitData(CategoryType.getCategory(categoryNum), PagingData.empty())
+            _broadcastList.emit(PagingData.empty())
             getBroadcastList(categoryNum)
-        }
-    }
-
-    private suspend fun emitData(categoryType: CategoryType, data: PagingData<Broadcast>) {
-        when (categoryType) {
-            CategoryType.TALK -> {
-                _talkBroadcastList.emit(data)
-            }
-            CategoryType.GAME -> {
-                _gameBroadcastList.emit(data)
-            }
-            CategoryType.EAT -> {
-                _eatBroadcastList.emit(data)
-            }
-            CategoryType.UNDEFINED -> {
-                // TODO error
-            }
         }
     }
 }

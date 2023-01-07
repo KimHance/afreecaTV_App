@@ -14,11 +14,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_detail_category"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="0dp"
             android:background="@color/grey"
-            android:foregroundGravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingVertical="10dp"
+            android:paddingVertical="15dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_category_detail" />

@@ -13,10 +13,11 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.hence.domain.model.Broadcast
 import com.hence.domain.model.Category
-import com.hence.domain.model.CategoryType
+import com.hence.domain.model.DetailCategory
 import com.hence.presentation.R
 import com.hence.presentation.base.BaseFragment
 import com.hence.presentation.broadcast.adapter.BroadcastPagingAdapter
+import com.hence.presentation.broadcast.adapter.CategoryDetailAdapter
 import com.hence.presentation.category.CategoryFragmentDirections
 import com.hence.presentation.databinding.FragmentBroadcastBinding
 import com.hence.presentation.main.PagerAdapter.Companion.ARG_CATEGORY
@@ -31,7 +32,12 @@ class BroadcastFragment :
     private val broadcastViewModel: BroadcastViewModel by viewModels()
     private val broadcastAdapter: BroadcastPagingAdapter by lazy {
         BroadcastPagingAdapter(itemClickListener = { broadcast ->
-            doOnClick(broadcast)
+            onBroadcastItemClick(broadcast)
+        })
+    }
+    private val categoryDetailAdapter: CategoryDetailAdapter by lazy {
+        CategoryDetailAdapter(itemClickListener = { detailCategory ->
+            onCategoryDetailClick(detailCategory)
         })
     }
     private lateinit var category: Category
@@ -55,7 +61,11 @@ class BroadcastFragment :
             btnUpScroll.setOnClickListener {
                 rvBroadcast.smoothScrollToPosition(0)
             }
-            rvDetailCategory.isGone = category.child.isEmpty()
+            rvDetailCategory.apply {
+                adapter = categoryDetailAdapter
+                isGone = category.child.isEmpty()
+                categoryDetailAdapter.submitList(category.child)
+            }
         }
     }
 
@@ -90,38 +100,21 @@ class BroadcastFragment :
     private fun collectFlow() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                with(broadcastViewModel) {
-                    when (CategoryType.getCategory(category.number)) {
-                        CategoryType.TALK -> {
-                            talkBroadcastList.collectLatest { data ->
-                                broadcastAdapter.submitData(data)
-                                binding.srlBroadcast.isRefreshing = false
-                            }
-                        }
-                        CategoryType.GAME -> {
-                            gameBroadcastList.collectLatest { data ->
-                                broadcastAdapter.submitData(data)
-                                binding.srlBroadcast.isRefreshing = false
-                            }
-                        }
-                        CategoryType.EAT -> {
-                            eatBroadcastList.collectLatest { data ->
-                                broadcastAdapter.submitData(data)
-                                binding.srlBroadcast.isRefreshing = false
-                            }
-                        }
-                        CategoryType.UNDEFINED -> {
-                            // TODO error
-                        }
-                    }
+                broadcastViewModel.broadcastList.collectLatest { pagingData ->
+                    broadcastAdapter.submitData(pagingData)
+                    binding.srlBroadcast.isRefreshing = false
                 }
             }
         }
     }
 
-    private fun doOnClick(broadcast: Broadcast) {
+    private fun onBroadcastItemClick(broadcast: Broadcast) {
         val action = CategoryFragmentDirections.actionCategoryFragmentToDetailFragment(broadcast)
         requireView().findNavController().navigate(action)
+    }
+
+    private fun onCategoryDetailClick(category: DetailCategory) {
+
     }
 
 }

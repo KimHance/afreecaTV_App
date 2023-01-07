@@ -19,8 +19,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_circle"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
             app:layout_constraintBottom_toBottomOf="@id/tv_detail_category_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_detail_category_name"
@@ -33,8 +33,7 @@
             android:layout_marginStart="5dp"
             android:text="@{category.name}"
             android:textColor="@color/dark_grey"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@id/iv_circle"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="피파온라인" />
