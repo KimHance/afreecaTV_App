@@ -120,14 +120,14 @@ class BroadcastFragment :
                         if (loadState.source.refresh is LoadState.Error) {
                             Snackbar.make(
                                 requireView(),
-                                getString(R.string.error_fail_to_get_list),
+                                getString(R.string.error_fail_to_fetch_list),
                                 Snackbar.LENGTH_SHORT
                             ).show()
                         }
                         if (loadState.source.append is LoadState.Error) {
                             Snackbar.make(
                                 requireView(),
-                                getString(R.string.error_network),
+                                getString(R.string.error_fetch_more_list),
                                 Snackbar.LENGTH_SHORT
                             ).show()
                         }

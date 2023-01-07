@@ -4,10 +4,12 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.hence.presentation.R
 import com.hence.presentation.base.BaseFragment
@@ -33,6 +35,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(R.layout.fragment
         if (isNetworkConnected) {
             initCategory()
         }
+        initButtonListener()
     }
 
     private fun checkNetworkState() {
@@ -62,17 +65,35 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(R.layout.fragment
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 categoryViewModel.categoryList.collect { categoryList ->
-                    binding.apply {
-                        if (categoryList.isNotEmpty()) {
-                            vpMain.adapter =
-                                PagerAdapter(this@CategoryFragment, categoryList)
-                            TabLayoutMediator(tlMain, vpMain) { tab, position ->
-                                tab.text = categoryList[position].name
-                            }.attach()
+                    when (categoryList) {
+                        is CategoryUiState.Success -> {
+                            with(binding) {
+                                ivRestartFetchCategory.isVisible = false
+                                vpMain.adapter =
+                                    PagerAdapter(this@CategoryFragment, categoryList.data)
+                                TabLayoutMediator(tlMain, vpMain) { tab, position ->
+                                    tab.text = categoryList.data[position].name
+                                }.attach()
+                            }
                         }
+                        is CategoryUiState.Error -> {
+                            Snackbar.make(
+                                requireView(),
+                                getString(R.string.error_fail_to_fetch_list),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                            binding.ivRestartFetchCategory.isVisible = true
+                        }
+                        is CategoryUiState.Loading -> {}
                     }
                 }
             }
+        }
+    }
+
+    private fun initButtonListener() {
+        binding.ivRestartFetchCategory.setOnClickListener {
+            categoryViewModel.getCategoryList()
         }
     }
 
