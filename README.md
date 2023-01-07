@@ -56,7 +56,7 @@ enum class CategoryType(val categoryNumber: String) {
 }
 
 ```
-3개의 탭을 구성할 카테고리의 키 값을 비교하기 위해 enum class를 활용하여 카테고리 키값을 필터링 합니다.
+- 3개의 탭을 구성할 카테고리의 키 값을 비교하기 위해 enum class를 활용하여 카테고리 키값을 필터링 합니다.
 
 ```kotlin
 // presentation.category
@@ -121,7 +121,7 @@ sealed class CategoryUiState {
   …
 ```
 
-뷰모델의 categoryList를 collect하여 CategoryUiState.Success일 때 PagerAdapter에게 data를 전달합니다.
+- 뷰모델의 categoryList를 collect하여 CategoryUiState.Success일 때 PagerAdapter에게 data를 전달합니다.
 
 ```kotlin
 // presentation.main
@@ -204,7 +204,7 @@ class PagerAdapter(
 - 뷰를 init할 때 category의 child가 있으면 서브카테고리 리스트가 rvDetailCategory를 통해 보여집니다.
 - 카테고리의 클릭 이벤트는 CategoryDeatilAdapter에 람다를 통해 전달됩니다.
 
-#### • 리스트 페이징
+### • 리스트 페이징
 
 ```kotlin
 // data.source.datasource
