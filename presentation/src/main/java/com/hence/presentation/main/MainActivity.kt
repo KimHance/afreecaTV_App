@@ -3,7 +3,6 @@ package com.hence.presentation.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.hence.presentation.databinding.ActivityMainBinding
-import com.hence.presentation.utils.NetworkManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

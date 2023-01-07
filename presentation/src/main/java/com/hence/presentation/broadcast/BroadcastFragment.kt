@@ -91,10 +91,7 @@ class BroadcastFragment :
             } else {
                 getSerializable(ARG_CATEGORY) as Category
             } ?: Category()
-            with(broadcastViewModel) {
-                getBroadcastList(category.number)
-                updateSelectedNumber(category.number)
-            }
+            broadcastViewModel.getSelectedCategoryBroadCastList(category.number)
         }
     }
 
@@ -133,10 +130,7 @@ class BroadcastFragment :
     }
 
     private fun onCategoryDetailClick(category: DetailCategory) {
-        with(broadcastViewModel) {
-            getBroadcastList(category.number)
-            updateSelectedNumber(category.number)
-        }
+        broadcastViewModel.getSelectedCategoryBroadCastList(category.number)
     }
 
 }
