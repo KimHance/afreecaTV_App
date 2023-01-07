@@ -1,8 +1,6 @@
 package com.hence.di
 
 import com.hence.data.repository.AfreecaRepositoryImpl
-import com.hence.data.source.datasource.AfreecaDataSource
-import com.hence.data.source.datasource.impl.AfreecaDataSourceImpl
 import com.hence.domain.repository.AfreecaRepository
 import dagger.Binds
 import dagger.Module
@@ -13,12 +11,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class DataModule {
-
-    @Binds
-    @Singleton
-    abstract fun bindAfreecaDataSource(
-        impl: AfreecaDataSourceImpl
-    ): AfreecaDataSource
 
     @Binds
     @Singleton
