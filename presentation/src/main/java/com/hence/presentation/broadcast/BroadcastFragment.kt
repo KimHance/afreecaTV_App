@@ -64,7 +64,7 @@ class BroadcastFragment :
                 adapter = categoryDetailAdapter
                 isGone = category.child.isEmpty()
                 val detailList = mutableListOf<DetailCategory>().apply {
-                    add(DetailCategory(getString(R.string.all_games), category.number))
+                    add(DetailCategory(getString(R.string.all), category.number))
                     addAll(category.child)
                 }
                 categoryDetailAdapter.submitList(detailList)
