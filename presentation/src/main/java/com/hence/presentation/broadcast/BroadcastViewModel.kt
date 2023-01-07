@@ -21,6 +21,8 @@ class BroadcastViewModel @Inject constructor(
     private val _broadcastList = MutableStateFlow<PagingData<Broadcast>>(PagingData.empty())
     val broadcastList = _broadcastList.asStateFlow()
 
+    var selectedCategoryNumber = ""
+
     fun getBroadcastList(categoryNum: String) {
         viewModelScope.launch {
             getBroadcastListUseCase(categoryNum)
@@ -31,10 +33,14 @@ class BroadcastViewModel @Inject constructor(
         }
     }
 
-    fun refreshBroadcastList(categoryNum: String) {
+    fun refreshBroadcastList() {
         viewModelScope.launch {
             _broadcastList.emit(PagingData.empty())
-            getBroadcastList(categoryNum)
+            getBroadcastList(selectedCategoryNumber)
         }
+    }
+
+    fun updateSelectedNumber(categoryNum: String) {
+        selectedCategoryNumber = categoryNum
     }
 }

@@ -64,14 +64,18 @@ class BroadcastFragment :
             rvDetailCategory.apply {
                 adapter = categoryDetailAdapter
                 isGone = category.child.isEmpty()
-                categoryDetailAdapter.submitList(category.child)
+                val detailList = mutableListOf<DetailCategory>().apply {
+                    add(DetailCategory(getString(R.string.all_games), category.number))
+                    addAll(category.child)
+                }
+                categoryDetailAdapter.submitList(detailList)
             }
         }
     }
 
     private fun swipeToRefresh() {
         binding.srlBroadcast.setOnRefreshListener {
-            broadcastViewModel.refreshBroadcastList(category.number)
+            broadcastViewModel.refreshBroadcastList()
         }
     }
 
@@ -93,7 +97,10 @@ class BroadcastFragment :
             } else {
                 getSerializable(ARG_CATEGORY) as Category
             } ?: Category()
-            broadcastViewModel.getBroadcastList(category.number)
+            with(broadcastViewModel) {
+                getBroadcastList(category.number)
+                updateSelectedNumber(category.number)
+            }
         }
     }
 
@@ -114,7 +121,10 @@ class BroadcastFragment :
     }
 
     private fun onCategoryDetailClick(category: DetailCategory) {
-
+        with(broadcastViewModel) {
+            getBroadcastList(category.number)
+            updateSelectedNumber(category.number)
+        }
     }
 
 }
