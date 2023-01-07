@@ -52,14 +52,11 @@ class BroadcastFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        swipeToRefresh()
         collectFlow()
-        checkRecyclerviewIsTopState()
     }
 
     private fun initView() {
         binding.apply {
-            rvBroadcast.adapter = broadcastAdapter
             btnUpScroll.setOnClickListener {
                 rvBroadcast.smoothScrollToPosition(0)
             }
@@ -72,23 +69,18 @@ class BroadcastFragment :
                 }
                 categoryDetailAdapter.submitList(detailList)
             }
-        }
-    }
-
-    private fun swipeToRefresh() {
-        binding.srlBroadcast.setOnRefreshListener {
-            broadcastViewModel.refreshBroadcastList()
-        }
-    }
-
-    private fun checkRecyclerviewIsTopState() {
-        with(binding) {
-            rvBroadcast.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    btnUpScroll.isVisible = recyclerView.computeVerticalScrollOffset() != 0
-                }
-            })
+            rvBroadcast.apply {
+                adapter = broadcastAdapter
+                addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+                        btnUpScroll.isVisible = recyclerView.computeVerticalScrollOffset() != 0
+                    }
+                })
+            }
+            srlBroadcast.setOnRefreshListener {
+                broadcastViewModel.refreshBroadcastList()
+            }
         }
     }
 
