@@ -5,27 +5,23 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.hence.data.source.datasource.AfreecaDataSource
 import com.hence.data.source.paging.AfreecaPagingSource
-import com.hence.di.DispatcherModule
 import com.hence.domain.model.Broadcast
 import com.hence.domain.model.Category
 import com.hence.domain.model.CategoryType
 import com.hence.domain.repository.AfreecaRepository
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class AfreecaRepositoryImpl @Inject constructor(
-    private val afreecaDataSource: AfreecaDataSource,
-    @DispatcherModule.DispatcherIO private val dispatcherIO: CoroutineDispatcher
+    private val afreecaDataSource: AfreecaDataSource
 ) : AfreecaRepository {
     override fun getBroadcastList(
         selectValue: String
     ): Flow<PagingData<Broadcast>> =
         Pager(PagingConfig(PAGE_SIZE)) {
             AfreecaPagingSource(afreecaDataSource, selectValue)
-        }.flow.flowOn(dispatcherIO)
+        }.flow
 
     override fun getCategoryList(): Flow<List<Category>> = flow {
         runCatching {
@@ -41,7 +37,7 @@ class AfreecaRepositoryImpl @Inject constructor(
         }.onFailure { exception ->
             throw exception
         }
-    }.flowOn(dispatcherIO)
+    }
 
     companion object {
         const val PAGE_SIZE = 60
