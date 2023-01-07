@@ -9,26 +9,26 @@ import com.hence.domain.model.DetailCategory
 fun List<BroadCastResponse.Broad>.toBroadCast(): List<Broadcast> {
     return this.map {
         Broadcast(
-            title = it.broad_title,
-            isPrivate = it.is_password,
-            categoryNum = it.broad_cate_no,
-            broadNum = it.broad_no,
-            userId = it.user_id,
-            userNick = it.user_nick,
-            userProfile = it.profile_img,
-            broadThumb = it.broad_thumb,
-            broadGrade = it.broad_grade,
-            viewCount = it.total_view_cnt
+            title = it.title,
+            isPrivate = it.isPassword,
+            categoryNum = it.CategoryNumber,
+            broadNum = it.number,
+            userId = it.userId,
+            userNick = it.userNick,
+            userProfile = it.profile,
+            broadThumb = it.thumb,
+            broadGrade = it.grade,
+            viewCount = it.totalCount
         )
     }
 }
 
 fun CategoryResponse.toCategory(): List<Category> {
-    return this.broad_category.map {
+    return this.broadcastCategory.map {
         Category(
-            name = it.cate_name,
-            number = it.cate_no,
-            child = it.child.toDetailCategory()
+            name = it.categoryName,
+            number = it.categoryNumber,
+            child = it.subCategory.toDetailCategory()
         )
     }
 }
@@ -36,8 +36,8 @@ fun CategoryResponse.toCategory(): List<Category> {
 fun List<CategoryResponse.BroadCategory.Child>.toDetailCategory(): List<DetailCategory> {
     return this.map {
         DetailCategory(
-            name = it.cate_name,
-            number = it.cate_no
+            name = it.categoryName,
+            number = it.categoryNumber
         )
     }
 }

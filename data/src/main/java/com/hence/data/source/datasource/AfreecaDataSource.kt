@@ -19,7 +19,7 @@ class AfreecaDataSource @Inject constructor(
             page = page
         )
         return if (response.isSuccessful) {
-            response.body()?.broad?.toBroadCast() ?: emptyList()
+            response.body()?.broadcastList?.toBroadCast() ?: emptyList()
         } else {
             throw Exception(response.message())
         }

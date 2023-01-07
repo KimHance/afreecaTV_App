@@ -1,28 +1,31 @@
 package com.hence.data.response
 
 
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class BroadCastResponse(
-    val broad: List<Broad>,
-    val page_no: Int
+    @SerializedName("broad")
+    val broadcastList: List<Broad>,
+    @SerializedName("page_no")
+    val pageNumber: Int
 ) {
     @Serializable
     data class Broad(
-        val broad_bps: String, // 8000
-        val broad_cate_no: String, // 00040019
-        val broad_grade: String, // 0
-        val broad_no: String, // 244360996
-        val broad_resolution: String, // 1920x1080
-        val broad_start: String, // 2023-01-04 16:15:56
-        val broad_thumb: String, // //liveimg.afreecatv.com/m/244360996
-        val broad_title: String, // 이상호x고스트 레전드원딜등장 오늘 상윤x마타 잡고 아최봇 인증하겠습니다
-        val is_password: String, // 0
-        val profile_img: String, // //profile.img.afreecatv.com/LOGO/ls/lshooooo/lshooooo.jpg?dummy=8609480503
-        val total_view_cnt: String, // 26466
-        val user_id: String, // lshooooo
-        val user_nick: String, // BJ이상호
-        val visit_broad_type: String // 0
+        @SerializedName("broad_bps") val bps: String, // 8000
+        @SerializedName("broad_cate_no") val CategoryNumber: String, // 00040019
+        @SerializedName("broad_grade") val grade: String, // 0
+        @SerializedName("broad_no") val number: String, // 244360996
+        @SerializedName("broad_resolution") val resolution: String, // 1920x1080
+        @SerializedName("broad_start") val start: String, // 2023-01-04 16:15:56
+        @SerializedName("broad_thumb") val thumb: String, // //liveimg.afreecatv.com/m/244360996
+        @SerializedName("broad_title") val title: String, // 이상호x고스트 레전드원딜등장 오늘 상윤x마타 잡고 아최봇 인증하겠습니다
+        @SerializedName("is_password") val isPassword: String, // 0
+        @SerializedName("profile_img") val profile: String, // //profile.img.afreecatv.com/LOGO/ls/lshooooo/lshooooo.jpg?dummy=8609480503
+        @SerializedName("total_view_cnt") val totalCount: String, // 26466
+        @SerializedName("user_id") val userId: String, // lshooooo
+        @SerializedName("user_nick") val userNick: String, // BJ이상호
+        @SerializedName("visit_broad_type") val visitType: String // 0
     )
 }

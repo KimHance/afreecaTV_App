@@ -1,22 +1,25 @@
 package com.hence.data.response
 
 
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
-@Serializable
 data class CategoryResponse(
-    val broad_category: List<BroadCategory>
+    @SerializedName("broad_category")
+    val broadcastCategory: List<BroadCategory>
 ) {
-    @Serializable
     data class BroadCategory(
-        val cate_name: String, // 토크/캠방
-        val cate_no: String, // 00130000
-        val child: List<Child>
+        @SerializedName("cate_name")
+        val categoryName: String, // 토크/캠방
+        @SerializedName("cate_no")
+        val categoryNumber: String, // 00130000
+        @SerializedName("child")
+        val subCategory: List<Child>
     ) {
-        @Serializable
         data class Child(
-            val cate_name: String, // 종합게임
-            val cate_no: String // 00040121
+            @SerializedName("cate_name")
+            val categoryName: String, // 종합게임
+            @SerializedName("cate_no")
+            val categoryNumber: String // 00040121
         )
     }
 }
