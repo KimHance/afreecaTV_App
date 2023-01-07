@@ -3,6 +3,7 @@ package com.hence.presentation.broadcast
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -54,6 +55,7 @@ class BroadcastFragment :
             btnUpScroll.setOnClickListener {
                 rvBroadcast.smoothScrollToPosition(0)
             }
+            rvDetailCategory.isGone = category.child.isEmpty()
         }
     }
 
