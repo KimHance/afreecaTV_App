@@ -16,9 +16,4 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
     }
-
-    override fun onDestroy() {
-        binding.unbind()
-        super.onDestroy()
-    }
 }
