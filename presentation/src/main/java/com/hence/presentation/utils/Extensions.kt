@@ -6,6 +6,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CancellationException
 
 fun showErrorMessage(view: View, message: String) {
     Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
