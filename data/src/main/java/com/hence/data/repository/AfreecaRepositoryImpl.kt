@@ -9,6 +9,7 @@ import com.hence.domain.model.Broadcast
 import com.hence.domain.model.Category
 import com.hence.domain.model.CategoryType
 import com.hence.domain.repository.AfreecaRepository
+import com.hence.utils.runSuspendCatching
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -24,7 +25,7 @@ class AfreecaRepositoryImpl @Inject constructor(
         }.flow
 
     override fun getCategoryList(): Flow<List<Category>> = flow {
-        runCatching {
+        runSuspendCatching {
             afreecaDataSource.getCategoryList()
         }.onSuccess { list ->
             emit(list.filter { category ->

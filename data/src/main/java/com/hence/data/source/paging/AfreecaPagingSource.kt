@@ -31,7 +31,7 @@ class AfreecaPagingSource(
                 prevKey = if (position == STARTING_PAGE) null else position - 1,
                 nextKey = if (broadCastList.isEmpty()) null else position + 1
             )
-        } catch (e: Exception) {
+        } catch (e: Throwable) {
             return LoadResult.Error(e)
         }
     }
